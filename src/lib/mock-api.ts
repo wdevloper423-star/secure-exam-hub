@@ -476,7 +476,7 @@ export async function getStudentExamContext(examId: string): Promise<ExamWithAtt
   await wait();
   const exam = examRows.find((e) => e.id === examId);
   if (!exam) return null;
-  return { exam, attempt: attemptFor(examId, CURRENT_STUDENT.id) };
+  return { exam: withItemSnapshot(exam), attempt: attemptFor(examId, CURRENT_STUDENT.id) };
 }
 
 /** Called when the student agrees to the rules and starts (or resumes) an exam. */

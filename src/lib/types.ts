@@ -79,6 +79,9 @@ export interface Exam {
   createdBy: string;
   totalMarks: number;
   questions: Question[]; // snapshot of quiz questions at scheduling time
+  description?: string; // written / practical / other: problem statement
+  instructions?: string; // practical: aim & instructions
+  wordLimit?: number; // written only
 }
 
 export interface ExamInput {

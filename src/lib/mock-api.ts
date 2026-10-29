@@ -437,10 +437,25 @@ export async function createExam(input: ExamInput): Promise<Exam> {
     totalMarks:
       item.type === "quiz" ? item.questions.reduce((s, q) => s + q.marks, 0) : item.marks,
     questions: item.questions.map((q) => ({ ...q })),
+    description: item.description,
+    instructions: item.instructions,
+    wordLimit: item.wordLimit,
   };
   examRows = [exam, ...examRows];
   return exam;
 }
+
+/** Fills exam-level text for seeded exams whose snapshot came from a library item. */
+const withItemSnapshot = (exam: Exam): Exam => {
+  const item = libraryRows.find((i) => i.id === exam.itemId);
+  if (!item) return exam;
+  return {
+    ...exam,
+    description: exam.description || item.description,
+    instructions: exam.instructions || item.instructions,
+    wordLimit: exam.wordLimit ?? item.wordLimit,
+  };
+};
 
 // ---------------------------------------------------------------------------
 // Student attempts

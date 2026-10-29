@@ -54,7 +54,9 @@ const shuffleArr = <T,>(arr: T[]): T[] => {
   const out = [...arr];
   for (let i = out.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
+    const tmp = out[i]!;
+    out[i] = out[j]!;
+    out[j] = tmp;
   }
   return out;
 };
@@ -218,7 +220,7 @@ function ExamScreen() {
   const answerKey = isQuiz ? current?.id ?? "" : "answer";
   const answeredCount = isQuiz
     ? order.filter((q) => answers[q.id] !== undefined).length
-    : typeof answers.answer === "string" && answers.answer.trim().length > 0
+    : typeof answers["answer"] === "string" && (answers["answer"] as string).trim().length > 0
       ? 1
       : 0;
   const totalQuestions = isQuiz ? order.length : 1;

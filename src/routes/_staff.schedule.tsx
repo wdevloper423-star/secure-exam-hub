@@ -4,6 +4,7 @@ import { CalendarClock, Info, Shuffle } from "lucide-react";
 import { toast } from "sonner";
 
 import { StatusBadge, TypeBadge, formatDateTime, useNow } from "@/components/shared/bits";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";

@@ -79,9 +79,9 @@ export interface Exam {
   createdBy: string;
   totalMarks: number;
   questions: Question[]; // snapshot of quiz questions at scheduling time
-  description?: string; // written / practical / other: problem statement
-  instructions?: string; // practical: aim & instructions
-  wordLimit?: number; // written only
+  description?: string | undefined; // written / practical / other: problem statement
+  instructions?: string | undefined; // practical: aim & instructions
+  wordLimit?: number | undefined; // written only
 }
 
 export interface ExamInput {
@@ -108,8 +108,8 @@ export interface Attempt {
   startedAt: string;
   endedAt?: string;
   terminateReason?: string;
-  score?: number;
-  totalMarks?: number;
+  score?: number | undefined;
+  totalMarks?: number | undefined;
   answers: Record<string, AnswerValue>;
 }
 

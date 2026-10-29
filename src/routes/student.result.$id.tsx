@@ -209,8 +209,8 @@ function ResultPage() {
             <CardTitle className="font-display text-base">Your submission</CardTitle>
           </CardHeader>
           <CardContent>
-            {typeof attempt.answers.answer === "string" && attempt.answers.answer.trim() ? (
-              <p className="whitespace-pre-wrap text-sm text-foreground">{attempt.answers.answer}</p>
+            {typeof attempt.answers["answer"] === "string" && (attempt.answers["answer"] as string).trim() ? (
+              <p className="whitespace-pre-wrap text-sm text-foreground">{attempt.answers["answer"]}</p>
             ) : (
               <p className="text-sm text-muted-foreground">
                 {terminated ? "No answer text was recorded before termination." : "No answer recorded."}

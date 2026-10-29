@@ -241,7 +241,10 @@ function LibraryPage() {
                           <DropdownMenuItem onClick={() => void handleDuplicate(item)}>
                             <Copy className="size-4" /> Duplicate
                           </DropdownMenuItem>
-                          <DropdownMenuItem variant="destructive" onClick={() => setDeleting(item)}>
+                          <DropdownMenuItem
+                            className="text-destructive focus:text-destructive"
+                            onClick={() => setDeleting(item)}
+                          >
                             <Trash2 className="size-4" /> Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>

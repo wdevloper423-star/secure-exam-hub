@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StaffRouteImport } from './routes/_staff'
+import { Route as StaffCreateRouteImport } from './routes/_staff.create'
+import { Route as StaffDashboardRouteImport } from './routes/_staff.dashboard'
+import { Route as StaffLibraryRouteImport } from './routes/_staff.library'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StaffRoute = StaffRouteImport.update({
+  id: '/_staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffCreateRoute = StaffCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffDashboardRoute = StaffDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffLibraryRoute = StaffLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => StaffRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/create': typeof StaffCreateRoute
+  '/dashboard': typeof StaffDashboardRoute
+  '/library': typeof StaffLibraryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create': typeof StaffCreateRoute
+  '/dashboard': typeof StaffDashboardRoute
+  '/library': typeof StaffLibraryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_staff': typeof StaffRouteWithChildren
+  '/_staff/create': typeof StaffCreateRoute
+  '/_staff/dashboard': typeof StaffDashboardRoute
+  '/_staff/library': typeof StaffLibraryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/create' | '/dashboard' | '/library'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/create' | '/dashboard' | '/library'
+  id:
+    | '__root__'
+    | '/'
+    | '/_staff'
+    | '/_staff/create'
+    | '/_staff/dashboard'
+    | '/_staff/library'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  StaffRoute: typeof StaffRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_staff': {
+      id: '/_staff'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_staff/create': {
+      id: '/_staff/create'
+      path: '/create'
+      fullPath: '/create'
+      preLoaderRoute: typeof StaffCreateRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/dashboard': {
+      id: '/_staff/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof StaffDashboardRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/library': {
+      id: '/_staff/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof StaffLibraryRouteImport
+      parentRoute: typeof StaffRoute
+    }
   }
 }
 
+interface StaffRouteChildren {
+  StaffCreateRoute: typeof StaffCreateRoute
+  StaffDashboardRoute: typeof StaffDashboardRoute
+  StaffLibraryRoute: typeof StaffLibraryRoute
+}
+
+const StaffRouteChildren: StaffRouteChildren = {
+  StaffCreateRoute: StaffCreateRoute,
+  StaffDashboardRoute: StaffDashboardRoute,
+  StaffLibraryRoute: StaffLibraryRoute,
+}
+
+const StaffRouteWithChildren = StaffRoute._addFileChildren(StaffRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  StaffRoute: StaffRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

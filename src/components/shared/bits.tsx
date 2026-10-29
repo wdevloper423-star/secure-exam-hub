@@ -1,5 +1,17 @@
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
+
+/** Current wall-clock time, mounted client-side only (null during SSR). */
+export function useNow(intervalMs = 30_000): number | null {
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const timer = setInterval(() => setNow(Date.now()), intervalMs);
+    return () => clearInterval(timer);
+  }, [intervalMs]);
+  return now;
+}
 
 import { Badge } from "@/components/ui/badge";
 import { CONTENT_TYPE_LABELS, type AttemptStatus, type ContentType } from "@/lib/types";

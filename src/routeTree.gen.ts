@@ -10,33 +10,164 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StaffRouteImport } from './routes/_staff'
+import { Route as StudentRouteImport } from './routes/student'
+import { Route as StaffCreateRouteImport } from './routes/_staff.create'
+import { Route as StaffDashboardRouteImport } from './routes/_staff.dashboard'
+import { Route as StaffLibraryRouteImport } from './routes/_staff.library'
+import { Route as StaffMonitoringRouteImport } from './routes/_staff.monitoring'
+import { Route as StaffResultsRouteImport } from './routes/_staff.results'
+import { Route as StaffScheduleRouteImport } from './routes/_staff.schedule'
+import { Route as StudentIndexRouteImport } from './routes/student.index'
+import { Route as StudentExamIdRouteImport } from './routes/student.exam.$id'
+import { Route as StudentResultIdRouteImport } from './routes/student.result.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StaffRoute = StaffRouteImport.update({
+  id: '/_staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRoute = StudentRouteImport.update({
+  id: '/student',
+  path: '/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffCreateRoute = StaffCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffDashboardRoute = StaffDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffLibraryRoute = StaffLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffMonitoringRoute = StaffMonitoringRouteImport.update({
+  id: '/monitoring',
+  path: '/monitoring',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffResultsRoute = StaffResultsRouteImport.update({
+  id: '/results',
+  path: '/results',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StaffScheduleRoute = StaffScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => StaffRoute,
+} as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentExamIdRoute = StudentExamIdRouteImport.update({
+  id: '/exam/$id',
+  path: '/exam/$id',
+  getParentRoute: () => StudentRoute,
+} as any)
+const StudentResultIdRoute = StudentResultIdRouteImport.update({
+  id: '/result/$id',
+  path: '/result/$id',
+  getParentRoute: () => StudentRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/student': typeof StudentRouteWithChildren
+  '/create': typeof StaffCreateRoute
+  '/dashboard': typeof StaffDashboardRoute
+  '/library': typeof StaffLibraryRoute
+  '/monitoring': typeof StaffMonitoringRoute
+  '/results': typeof StaffResultsRoute
+  '/schedule': typeof StaffScheduleRoute
+  '/student/': typeof StudentIndexRoute
+  '/student/exam/$id': typeof StudentExamIdRoute
+  '/student/result/$id': typeof StudentResultIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create': typeof StaffCreateRoute
+  '/dashboard': typeof StaffDashboardRoute
+  '/library': typeof StaffLibraryRoute
+  '/monitoring': typeof StaffMonitoringRoute
+  '/results': typeof StaffResultsRoute
+  '/schedule': typeof StaffScheduleRoute
+  '/student': typeof StudentIndexRoute
+  '/student/exam/$id': typeof StudentExamIdRoute
+  '/student/result/$id': typeof StudentResultIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_staff': typeof StaffRouteWithChildren
+  '/student': typeof StudentRouteWithChildren
+  '/_staff/create': typeof StaffCreateRoute
+  '/_staff/dashboard': typeof StaffDashboardRoute
+  '/_staff/library': typeof StaffLibraryRoute
+  '/_staff/monitoring': typeof StaffMonitoringRoute
+  '/_staff/results': typeof StaffResultsRoute
+  '/_staff/schedule': typeof StaffScheduleRoute
+  '/student/': typeof StudentIndexRoute
+  '/student/exam/$id': typeof StudentExamIdRoute
+  '/student/result/$id': typeof StudentResultIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/student'
+    | '/create'
+    | '/dashboard'
+    | '/library'
+    | '/monitoring'
+    | '/results'
+    | '/schedule'
+    | '/student/'
+    | '/student/exam/$id'
+    | '/student/result/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/create'
+    | '/dashboard'
+    | '/library'
+    | '/monitoring'
+    | '/results'
+    | '/schedule'
+    | '/student'
+    | '/student/exam/$id'
+    | '/student/result/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_staff'
+    | '/student'
+    | '/_staff/create'
+    | '/_staff/dashboard'
+    | '/_staff/library'
+    | '/_staff/monitoring'
+    | '/_staff/results'
+    | '/_staff/schedule'
+    | '/student/'
+    | '/student/exam/$id'
+    | '/student/result/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  StaffRoute: typeof StaffRouteWithChildren
+  StudentRoute: typeof StudentRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +179,125 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_staff': {
+      id: '/_staff'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student': {
+      id: '/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof StudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_staff/create': {
+      id: '/_staff/create'
+      path: '/create'
+      fullPath: '/create'
+      preLoaderRoute: typeof StaffCreateRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/dashboard': {
+      id: '/_staff/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof StaffDashboardRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/library': {
+      id: '/_staff/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof StaffLibraryRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/monitoring': {
+      id: '/_staff/monitoring'
+      path: '/monitoring'
+      fullPath: '/monitoring'
+      preLoaderRoute: typeof StaffMonitoringRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/results': {
+      id: '/_staff/results'
+      path: '/results'
+      fullPath: '/results'
+      preLoaderRoute: typeof StaffResultsRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/_staff/schedule': {
+      id: '/_staff/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof StaffScheduleRouteImport
+      parentRoute: typeof StaffRoute
+    }
+    '/student/': {
+      id: '/student/'
+      path: '/'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/student/exam/$id': {
+      id: '/student/exam/$id'
+      path: '/exam/$id'
+      fullPath: '/student/exam/$id'
+      preLoaderRoute: typeof StudentExamIdRouteImport
+      parentRoute: typeof StudentRoute
+    }
+    '/student/result/$id': {
+      id: '/student/result/$id'
+      path: '/result/$id'
+      fullPath: '/student/result/$id'
+      preLoaderRoute: typeof StudentResultIdRouteImport
+      parentRoute: typeof StudentRoute
+    }
   }
 }
 
+interface StaffRouteChildren {
+  StaffCreateRoute: typeof StaffCreateRoute
+  StaffDashboardRoute: typeof StaffDashboardRoute
+  StaffLibraryRoute: typeof StaffLibraryRoute
+  StaffMonitoringRoute: typeof StaffMonitoringRoute
+  StaffResultsRoute: typeof StaffResultsRoute
+  StaffScheduleRoute: typeof StaffScheduleRoute
+}
+
+const StaffRouteChildren: StaffRouteChildren = {
+  StaffCreateRoute: StaffCreateRoute,
+  StaffDashboardRoute: StaffDashboardRoute,
+  StaffLibraryRoute: StaffLibraryRoute,
+  StaffMonitoringRoute: StaffMonitoringRoute,
+  StaffResultsRoute: StaffResultsRoute,
+  StaffScheduleRoute: StaffScheduleRoute,
+}
+
+const StaffRouteWithChildren = StaffRoute._addFileChildren(StaffRouteChildren)
+
+interface StudentRouteChildren {
+  StudentIndexRoute: typeof StudentIndexRoute
+  StudentExamIdRoute: typeof StudentExamIdRoute
+  StudentResultIdRoute: typeof StudentResultIdRoute
+}
+
+const StudentRouteChildren: StudentRouteChildren = {
+  StudentIndexRoute: StudentIndexRoute,
+  StudentExamIdRoute: StudentExamIdRoute,
+  StudentResultIdRoute: StudentResultIdRoute,
+}
+
+const StudentRouteWithChildren =
+  StudentRoute._addFileChildren(StudentRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  StaffRoute: StaffRouteWithChildren,
+  StudentRoute: StudentRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

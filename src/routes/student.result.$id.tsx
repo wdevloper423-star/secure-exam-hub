@@ -17,7 +17,7 @@ import { getStudentExamContext } from "@/lib/mock-api";
 import type { Attempt, Exam } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_student/result/$id")({
+export const Route = createFileRoute("/student/result/$id")({
   head: () => ({
     meta: [
       { title: "Exam Result · QuizLab Pro" },

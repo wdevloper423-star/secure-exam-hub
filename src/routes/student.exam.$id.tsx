@@ -35,7 +35,7 @@ import { getStudentExamContext, startAttempt, submitAttempt, terminateAttempt } 
 import type { AnswerValue, ExamWithAttempt, Question } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_student/exam/$id")({
+export const Route = createFileRoute("/student/exam/$id")({
   head: () => ({
     meta: [
       { title: "Secure Exam · QuizLab Pro" },

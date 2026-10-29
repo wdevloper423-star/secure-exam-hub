@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { listStudentExams } from "@/lib/mock-api";
 import type { ExamWithAttempt } from "@/lib/types";
 
-export const Route = createFileRoute("/_student/")({
+export const Route = createFileRoute("/student/")({
   head: () => ({
     meta: [
       { title: "My Exams · QuizLab Pro" },

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useAuth, useRequireRole } from "@/lib/auth";
 
-export const Route = createFileRoute("/_student")({
+export const Route = createFileRoute("/student")({
   component: StudentLayout,
 });
 

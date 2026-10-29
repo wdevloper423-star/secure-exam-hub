@@ -469,7 +469,7 @@ export async function listStudentExams(): Promise<ExamWithAttempt[]> {
   return examRows
     .filter((e) => e.batch === CURRENT_STUDENT.batch)
     .sort((a, b) => b.startAt.localeCompare(a.startAt))
-    .map((exam) => ({ exam, attempt: attemptFor(exam.id, CURRENT_STUDENT.id) }));
+    .map((exam) => ({ exam: withItemSnapshot(exam), attempt: attemptFor(exam.id, CURRENT_STUDENT.id) }));
 }
 
 export async function getStudentExamContext(examId: string): Promise<ExamWithAttempt | null> {

@@ -33,8 +33,8 @@ describe("Exam attempt rules (mock data layer)", () => {
     expect(attempt.violations).toBe(1);
     expect(attempt.answers).toEqual(answers);
     expect(attempt.endedAt).toBeTruthy();
-    // partial auto-grading: one of the two answered questions is correct (2 marks total)
-    expect(attempt.score).toBe(2);
+    // partial auto-grading: q_dbms_1 correct (1 mark), q_dbms_3 wrong
+    expect(attempt.score).toBe(1);
     expect(attempt.totalMarks).toBe(6);
   });
 
